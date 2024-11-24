@@ -1,0 +1,433 @@
+@charset "UTF-8";
+
+* {
+	user-select: none;
+}
+
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f0f2f5;
+	margin: 0;
+	padding: 0;
+}
+
+td, th  {
+	user-select: text; /* 允许选中文本 */
+	caret-color: transparent;
+}
+
+td input  {
+    caret-color: #6c757d;
+}
+
+.hoshi{
+	font-size: 0.9em;
+	text-align: right;
+}
+
+a {
+	text-decoration: none;
+}
+
+#user-info {
+	font-size: 0.9em;
+	text-align: right;
+	padding: 10px;
+	background-color: #ffffff;
+	border-bottom: 1px solid #ddd;
+}
+
+#user-info .button {
+	background-color: #007bff;
+	color: white;
+	border: none;
+	padding: 5px 10px;
+	border-radius: 4px;
+	cursor: pointer;
+	margin-left: 10px;
+}
+
+#user-info .logout-button {
+	background-color: #dc3545;
+}
+
+#user-info .logout-button:hover {
+	background-color: #c82333;
+}
+
+#user-info .password-change-button:hover {
+	background-color: #0056b3;
+}
+
+#search-area {
+	margin: 20px;
+	padding: 15px;
+	width: 60%;
+	background-color: #ffffff;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+}
+
+#edit-body, #csv-body {
+	display: flex;
+	align-items: center; /* 垂直居中 */
+	justify-content: center; /* 水平居中 */
+}
+
+#edit-area, #csv-area {
+	margin: 60px;
+	padding: 30px;
+	width: 50%;
+	background-color: #ffffff;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	position: relative;
+}
+
+#edit-area table {
+	width: 100%;
+}
+
+#edit-area th {
+	font-size: 2em;
+}
+
+input[type="text"]:disabled {
+	background-color: #f0f0f0; /* 灰色背景表示禁用 */
+	color: #484848; /* 字体颜色变浅 */
+	border: 1px solid #ccc; /* 边框颜色变浅 */
+	cursor: not-allowed; /* 鼠标样式为不可用状态 */
+	opacity: 0.7; /* 使元素看起来更不显眼 */
+}
+
+input[type="radio"]:disabled {
+	cursor: not-allowed; /* 鼠标样式为不可用状态 */
+	filter: grayscale(100%); /* 灰度处理，使禁用的单选按钮更显眼 */
+	opacity: 0.6; /* 透明度降低，让其看起来是禁用的 */
+}
+
+select:disabled {
+	background-color: #f0f0f0; /* 设置背景色为浅灰色，表示不可用 */
+	color: #484848; /* 设置文本颜色为浅灰色 */
+	border: 1px solid #ccc; /* 边框颜色变浅 */
+	cursor: not-allowed; /* 鼠标变为不可操作状态 */
+	opacity: 0.7; /* 使元素的透明度降低，增强禁用的视觉效果 */
+}
+
+#search-area table {
+	user-select: text; /* 允许选中文本 */
+	width: 100%;
+}
+
+#search-area td {
+	padding: 5px;
+}
+
+.search-left, .search-right {
+	float: left;
+}
+
+input[type="text"], input[type="date"], input[type="password"], select {
+	width: 100%;
+	padding: 8px;
+	margin: 5px 0;
+	box-sizing: border-box;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+td label {
+	padding-right: 40px;
+}
+
+.select-container {
+	display: flex; /* 使 <td> 成为 flex 容器 */
+	justify-content: space-between; /* 平均分配每个 <select> 元素的水平间距 */
+	align-items: center; /* 垂直方向居中 */
+}
+
+#errorArea {
+	text-align: right;
+}
+
+#errorMSG {
+	color: red;
+	text-align: left;
+}
+
+select[name="birthYear"] {
+	display: inline-block;
+	width: 40%;
+}
+
+select[name="birthMonth"] {
+	display: inline-block;
+	width: 25%;
+}
+
+select[name="birthDay"] {
+	display: inline-block;
+	width: 25%;
+}
+
+input[type="submit"],#reset-button, #return-button, #update-button, #insert-button {
+	background-color: #28a745;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 1em;
+}
+
+/* 启用状态的按钮样式 */
+input[type="button"] {
+    background-color: #28a745; /* 蓝色 */
+    color: white;
+    border: none;
+    padding: 5px 8px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 0.8em;
+    transition: background-color 0.3s; /* 增加平滑过渡效果 */
+}
+
+#tem-down {
+	position: absolute;  /* 绝对定位相对于父容器 */
+    top: 30px;           /* 距离顶部 10px */
+    right: 20px;         /* 距离右侧 10px */
+}
+
+input[type="submit"]:hover,input[type="button"]:not(:disabled):hover , #reset-button:hover, #return-button:hover,
+	#update-button:hover, #insert-button:hover {
+	background-color: #218838;
+}
+
+/* 禁用状态的按钮样式 */
+input[type="button"]:disabled {
+    background-color: #d3d3d3; /* 灰色背景 */
+    color: #6c757d; /* 灰色文字 */
+    cursor: not-allowed; /* 禁用状态的光标 */
+}
+
+#return-button {
+	background-color: #dc3545;
+}
+
+#return-button:hover {
+	background-color: #b92e3b;
+}
+
+#new-button {
+	text-align: right;
+	padding: 10px;
+	margin-right: 20px;
+}
+
+#new-button button {
+	background-color: #28a745;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+#new-button button:hover {
+	background-color: #218838;
+}
+
+#employee-list {
+	margin: 0 20px;
+	padding: 20px;
+	background-color: #ffffff;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+}
+
+#employee-list table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+#employee-list th, #employee-list td {
+	border: 1px solid #ddd;
+	padding: 10px;
+	text-align: center;
+}
+
+#employee-list th {
+	background-color: #f2f2f2;
+}
+
+.action-button {
+	background-color: #ffc107;
+	color: white;
+	border: none;
+	padding: 5px 10px;
+	margin: 0 5px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.action-button:hover {
+	background-color: #e0a800;
+}
+
+.action-button:disabled {
+	background-color: #ccc;
+	cursor: not-allowed;
+}
+
+button {
+	cursor: pointer;
+}
+
+/* 自定义提示框样式 */
+#custom-dialog {
+	display: none;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 300px;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	z-index: 1000;
+}
+
+#custom-dialog .dialog-content {
+	padding: 20px;
+	text-align: center;
+}
+
+#custom-dialog .dialog-buttons {
+	margin-bottom: 10px; display : flex;
+	justify-content: space-around;
+	padding: 10px;
+	display: flex;
+}
+
+#custom-dialog .dialog-button {
+	background-color: #007bff;
+	color: white;
+	border: none;
+	padding: 10px 15px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+#custom-dialog .dialog-button:hover {
+	background-color: #0056b3;
+}
+
+#dialog-overlay {
+	display: none;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 999;
+}
+
+#employeeListTable {
+	border: 1px;
+}
+
+.pagination {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0 30px;
+	padding: 0 0;
+}
+
+.pagination-buttons {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex: 1; /* 让按钮容器占据更多空间，方便居中 */
+}
+
+.pagination-buttons a, .pagination-buttons button {
+	display: inline-block;
+	border: 1px solid #ddd;
+	padding: 8px 12px;
+	margin: 0 4px;
+	border-radius: 4px;
+	text-decoration: none;
+	color: #333;
+	background-color: #f0f0f0;
+	transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination-info {
+	margin-left: auto; /* 将 p 标签的内容靠右显示 */
+	white-space: nowrap; /* 防止文字换行 */
+	font-size: 14px; /* 调整字体大小，避免影响按钮 */
+}
+
+.pagination-buttons a:hover, .pagination-buttons button:hover {
+	background-color: #77a7db;
+	color: #fff;
+}
+
+.pagination-buttons .active {
+	background-color: #77a7db;
+	color: #fff;
+	cursor: default;
+	pointer-events: none;
+}
+
+.alert {
+	position: fixed;
+	top: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: #d4edda;
+	border: 1px solid #c3e6cb;
+	padding: 10px 20px;
+	border-radius: 5px;
+	z-index: 1000;
+	display: none;
+}
+
+.error-heading {
+    color: #b71c1c;
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-bottom: 0px;
+}
+
+.error-container {
+    /* border: 1px solid #ffffff; */
+    /* background-color: #f8d7da; */
+    padding: 0px;
+    /* border-radius: 5px;
+    margin-bottom: 20px; */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+}
+
+.error-ul {
+    /* list-style-type: disc;
+    padding-inline-start: 5px; */
+    padding: 0;
+    margin: 0;
+    
+}
+
+.error-li {
+	border: 1px solid #ababab; 
+    color: #721c24;
+    font-size: 1em;
+    line-height: 1.0;
+    padding: 8px;
+    
+    border-radius: 5px;
+    list-style: none; /* 去掉原生列表项的样式 */
+    
+}

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="risotech.practice.employee.dao.EmployeeMapper">
+
+    <sql id="empColumns">
+        emp_id,seq_id,username,gender,age,marital_status,join_year,join_month,join_day,birthday,address,education,phone_number,email,status,profile_picture_url
+    </sql>
+
+    <!-- Employee getEmpByLoginId(String loginId); -->
+    <select id="getEmpByLoginId"
+            resultType="Employee">
+        select * from t_employee
+        where emp_id = (
+            select emp_id from
+                t_credentials
+            where login_id = #{loginId}
+              and enabled = true
+        )
+    </select>
+
+    <!-- Employee getEmpByEmpId(String empId); -->
+    <select id="getEmpByEmpId" resultType="Employee">
+        select * from t_employee
+        where emp_id = #{empId}
+    </select>
+
+    <!-- String getHashPassword(@Param("loginId") String loginId);
+    <select id="getHashPassword" resultType="String">
+        select password_hash
+        from t_credentials
+        where login_id = #{loginId}
+          and enabled = true
+    </select> -->
+
+    <!-- List<Employee> getAllEmployee(); -->
+    <select id="getAllEmployee" resultType="Employee">
+        select
+        <include refid="empColumns" />
+        from t_employee
+    </select>
+
+    <!-- List<Employee> getEmployeeListByConditions(@Param("employee")Employee
+        employee); -->
+    <select id="getEmployeeListByConditions" resultType="Employee">
+        select
+        <include refid="empColumns" />
+        from t_employee
+        <trim prefix="where" suffixOverrides="and">
+            <if test="empId != '' and empId != null">
+                emp_id = #{empId} and
+            </if>
+            <if test="username != '' and username != null">
+                username like concat('%',#{username},'%') and
+            </if>
+            <if test="gender == true or gender == false">
+                gender = #{gender} and
+            </if>
+            <if test="age != '' and age != null">
+                age = #{age} and
+            </if>
+            <if test="maritalStatus == true or maritalStatus == false">
+                marital_status = #{maritalStatus} and
+            </if>
+            <if test="joinYear != null">
+                join_year = #{joinYear} and
+            </if>
+            <if test=" joinMonth != null">
+                join_month = #{joinMonth} and
+            </if>
+            <if test="joinDay != null">
+                join_day = #{joinDay} and
+            </if>
+            <!-- <if test="birthday != '' and birthday != null"> birthday = ' ${birthday}
+                ' </if> -->
+            <if test="birthday != null and birthday != ''">
+                <trim suffixOverrides="AND">
+                    <!-- 判断是否有年份 -->
+                    <if test="birthday.substring(0, 4) != '0000'">
+                        EXTRACT(YEAR FROM birthday) = '${birthday.substring(0,
+						4)}' AND
+                    </if>
+
+                    <!-- 判断是否有月份 -->
+                    <if test="birthday.substring(5, 7) != '00'">
+                        EXTRACT(MONTH FROM birthday) = '${birthday.substring(5,
+						7)}' AND
+                    </if>
+
+                    <!-- 判断是否有日期 -->
+                    <if test="birthday.substring(8, 10) != '00'">
+                        EXTRACT(DAY FROM birthday) = '${birthday.substring(8,
+						10)}'
+                    </if>
+                </trim>
+            </if>
+        </trim>
+        order by emp_id ASC
+    </select>
+
+    <!-- List<String> getAllPWByLoginId(); 
+    <select id="getAllPWByLoginId" resultType="String">
+        select password_hash
+        from t_credentials
+        where login_id = #{loginId}
+    </select>-->
+
+    <!-- //1.弃用旧密码：把旧密码的active设置为false int disabeOldPW(@Param("loginId")String
+        loginId); 
+    <update id="disabeOldPW" >
+        update t_credentials
+        set enabled = false
+        where login_id = #{loginId}
+          and enabled = true
+    </update>	-->
+
+    <!-- //2.插入新密码
+    void insertNewPW(@Param("loginId")String loginId, @Param("empId")String empId, @Param("newHashPW")String newHashPW);
+    <insert id="insertNewPW"  >
+        insert into t_credentials
+            (login_id, emp_id, password_hash, enabled)
+        VALUES
+            (#{loginId}, #{empId}, #{newHashPW}, true)
+    </insert>	 -->
+
+    <!-- void updateEmployee(Employee employee); -->
+    <update id="updateEmployee">
+        update t_employee
+        set
+            username = #{username},
+            gender = #{gender},
+            age = #{age},
+            marital_status = #{maritalStatus},
+            join_year = #{joinYear},
+            join_month = #{joinMonth},
+            join_day = #{joinDay},
+            birthday = '${birthday}',
+            address = #{address},
+            education = #{education},
+            phone_number = #{phoneNumber},
+            email = #{email}
+        where emp_id = #{empId}
+
+    </update>
+
+
+    <!-- void deleteEmployee(@Param("empId") String empId); -->
+    <delete id="deleteEmployee">
+        delete from t_employee
+        where emp_id = #{empId}
+    </delete>
+
+    <!-- void deleteEmployeeCredential(@Param("empId") String empId);
+    <delete id="deleteEmployeeCredential">
+        delete from t_credentials
+        where emp_id = #{empId}
+    </delete>	 -->
+
+    <!-- int insertEmployee(EmployeeMapper employee); -->
+    <insert id="insertEmployee">
+        insert into t_employee
+            (<include refid="empColumns" />)
+        values
+            (#{empId},DEFAULT,#{username},#{gender},#{age},#{maritalStatus},#{joinYear},#{joinMonth},#{joinDay},'${birthday}',#{address},#{education},#{phoneNumber},#{email},#{status},#{profilePictureUrl})
+    </insert>
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

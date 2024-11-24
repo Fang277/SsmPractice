@@ -1,0 +1,2 @@
+empId,username,gender,age,maritalStatus,joinYear,joinMonth,joinDay,birthday,address,education,phoneNumber,email,loginId,password
+AAAA1234,田中一郎,男,28,未婚,2021,12,28,1999-02-28,东京都池袋区,大学毕业,123-1234-1234,123@qq.com,Tanakaichiro,PW123456
